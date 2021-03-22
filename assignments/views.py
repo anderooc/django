@@ -1,15 +1,18 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.template import loader
 
 # Create your views here.
 def index(request):
-    return HttpResponse("This BlackBaud")
+    return render(request, 'assignments/home.html')
 
-def editProfile(request)
-    return HttpResponse("Edit your profile here")
+def viewProfile(request):
+    return render(request, 'assignments/userProfile.html')
+
+def editProfile(request):
+    return render(request, 'assignments/userProfile.html')
 
 def viewAssignment(request, assignmentName):
     return HttpResponse(assignmentName)
 
-def makeAssignment(request)
+def makeAssignment(request):
     return HttpResponse("Make your assignment here")
