@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Profile(User):
     user = models.OneToOneField(
-
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True
     )
     is_student = models.BooleanField()
     is_teacher = models.BooleanField()
@@ -19,3 +21,4 @@ class TeacherProfile(models.Model):
 
 class Assignment(models.Model):
     assignmentName = models.CharField(max_length=100)
+    assignmentDescription = models.CharField(max_length=200)
