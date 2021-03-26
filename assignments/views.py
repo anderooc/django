@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.template import loader
-from .models import Assignment
-from django.contrib.auth.models import User, Profile, StudentProfile, TeacherProfile
+from .models import UserProfile, StudentProfile, TeacherProfile, Assignment
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
@@ -13,7 +13,7 @@ def index(request):
 
 def viewProfile(request):
     user = User.objects.get(username = usr)
-    isStudent = get_object_or_404(Profile, pk=is_student)
+    isStudent = get_object_or_404(UserProfile, pk=is_student)
     if isStudent:
         student = get_object_or_404(StudentProfile, pk=user)
         context = {
