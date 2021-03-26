@@ -15,14 +15,18 @@ def viewProfile(request):
     user = User.objects.get(username = usr)
     isStudent = get_object_or_404(Profile, pk=is_student)
     if isStudent:
-        grade = get_object_or_404(StudentProfile, pk=grade)
+        student = get_object_or_404(StudentProfile, pk=user)
+        context = {
+            'username': usr,
+            'isStudent': isStudent,
+            'student': student
+        }
     else:
-        subject = get_object_or_404(TeacherProfile, pk=subject)
-    context = {
-        'username': usr,
-        'grade': grade,
-        'subject': subject
-    }
+        teacher = get_object_or_404(TeacherProfile, pk=user)
+        context = {
+            'username': usr,
+            'teacher': teacher
+        }
     return render(request, 'assignments/userProfile.html', context)
 
 def editProfile(request):
@@ -35,7 +39,7 @@ def viewAssignment(request, assignmentName):
         'name': name,
         'description': description
     }
-    return HttpResponse(request, assignmentName, context)
+    return HttpResponse(request, 'assignments/assignmentPage.html', context)
 
 def makeAssignment(request):
     return HttpResponse(request, "Make your assignment here")
