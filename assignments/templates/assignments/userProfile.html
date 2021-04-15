@@ -15,10 +15,11 @@
     <h1>User Profile</h1>
     <div>Hi {{username}}</div>
     {% if profile.isStudent == True %}
-    <p>This is a student profile</p>
-    <div>You are in grade {{student.grade}}</div>
+      <p>This is a student profile</p>
+      <div>You are in grade {{student.grade}}</div>
     {% else %}
-    <p>This is a teacher profile</p>
-    <div>You teach the subject {{teacher.subject}}</div>
+      <p>This is a teacher profile</p>
+      <div>You teach the subject {{teacher.subject}}</div>
+    {% endif %}
   </body>
 </html>

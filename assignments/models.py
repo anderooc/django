@@ -22,3 +22,4 @@ class TeacherProfile(models.Model):
 class Assignment(models.Model):
     assignmentName = models.CharField(max_length=100)
     assignmentDescription = models.CharField(max_length=200)
+    
