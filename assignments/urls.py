@@ -7,6 +7,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('viewProfile/', views.viewProfile, name='viewProfile'),
     path('editProfile/', views.editProfile, name='editProfile'),
-    path('viewAssignment/', views.viewAssignment, name='viewAssignment'),
+    path('viewAssignments/', views.viewAssignments, name='viewAssignments'),
     path('makeAssignment/', views.makeAssignment, name='makeAssignment')
 ]

@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 from django.template import loader
 from .models import UserProfile, StudentProfile, TeacherProfile, Assignment
 from django.contrib.auth.models import User
@@ -32,12 +33,10 @@ def viewProfile(request):
 def editProfile(request):
     return render(request, 'assignments/userProfile.html')
 
-def viewAssignment(request):
-    name  = get_object_or_404(Assignment, pk=assignmentName)
-    description = get_object_or_404(Assignment, pk=assignmentDescription)
+def viewAssignments(request):
+    allAssignments = Assignment.objects.all()
     context = {
-        'name': name,
-        'description': description
+        "allAssignments": allAssignments,
     }
     return HttpResponse(request, 'assignments/assignmentPage.html', context)
 
