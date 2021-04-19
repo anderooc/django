@@ -8,14 +8,16 @@
   </head>
 
   <body>
-    <h1>User Profile</h1>
-    <div>Hi {{username}}</div>
-    {% if profile.isStudent == True %}
-      <p>This is a student profile</p>
-      <div>You are in grade {{student.grade}}</div>
-    {% else %}
-      <p>This is a teacher profile</p>
-      <div>You teach the subject {{teacher.subject}}</div>
-    {% endif %}
+    <div class="container">
+      <h1>User Profile</h1>
+      <div>Hi {{username}}</div>
+      {% if profile.isStudent == True %}
+        <p>This is a student profile</p>
+        <div>You are in grade {{student.grade}}</div>
+      {% else %}
+        <p>This is a teacher profile</p>
+        <div>You teach the subject {{teacher.subject}}</div>
+      {% endif %}
+    </div>
   </body>
 </html>
