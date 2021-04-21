@@ -10,8 +10,10 @@
   <body>
     <div class="container">
       <h1>Assignments Page</h1>
-      <div>{{assignment.name}}</div>
-      <div>{{assignment.description}}</div>
+      {% for assignment in allAssignments %}
+        <div>{{assignment.assignmentName}}</div>
+        <div>{{assignment.assignmentDescription}}</div>
+      {% endfor %}
     </div>
   </body>
 </html>

@@ -38,7 +38,8 @@ def viewAssignments(request):
     context = {
         "allAssignments": allAssignments,
     }
-    return HttpResponse(request, 'assignments/assignmentPage.html', context)
+    print(context)
+    return render(request, 'assignments/assignmentsPage.html', context)
 
 def makeAssignment(request):
     return HttpResponse(request, "Make your assignment here")
