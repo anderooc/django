@@ -13,22 +13,26 @@ def index(request):
     return render(request, 'assignments/home.html', context)
 
 def viewProfile(request):
-    user = User.objects.get(username = usr)
-    isStudent = get_object_or_404(UserProfile, pk=is_student)
-    if isStudent:
-        student = get_object_or_404(StudentProfile, pk=user)
-        context = {
-            'username': usr,
-            'isStudent': isStudent,
-            'student': student
-        }
+    if request.user.is_authenticated:
+        username = request.user.username
+        thisUser = User.objects.get(username = username)
+        isStudent = get_object_or_404(UserProfile, pk=thisUser.pk)
+        if isStudent:
+            student = get_object_or_404(StudentProfile, pk=thisUser.pk)
+            context = {
+                'username': username,
+                'isStudent': isStudent,
+                'student': student
+            }
+        else:
+            teacher = get_object_or_404(TeacherProfile, user=thisUser) # better
+            context = {
+                'username': username,
+                'teacher': teacher
+            }
+        return render(request, 'assignments/userProfile.html', context)
     else:
-        teacher = get_object_or_404(TeacherProfile, pk=user)
-        context = {
-            'username': usr,
-            'teacher': teacher
-        }
-    return render(request, 'assignments/userProfile.html', context)
+        return HttpResponse("User login not found")
 
 def editProfile(request):
     return render(request, 'assignments/userProfile.html')

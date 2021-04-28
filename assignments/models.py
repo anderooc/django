@@ -11,7 +11,7 @@ class UserProfile(models.Model):
     is_student = models.BooleanField()
     is_teacher = models.BooleanField()
     def __str__(self):
-        return self.name
+        return self.user.username
 
 class StudentProfile(models.Model):
     grade = models.IntegerField()
@@ -22,4 +22,3 @@ class TeacherProfile(models.Model):
 class Assignment(models.Model):
     assignmentName = models.CharField(max_length=100)
     assignmentDescription = models.CharField(max_length=200)
-    
