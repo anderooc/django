@@ -31,7 +31,7 @@
 
   <body>
     <div class="container">
-      {% if loggedIn %}
+      {% if user.is_authenticated %}
         <ul>
           <li><a class="active" href="../">Home</a></li>
           <li><a href="../viewAssignments">View Assignments</a></li>
@@ -45,7 +45,7 @@
           {% csrf_token %}
           <div class="form-group">
             <label for="inputUsername">Username</label>
-            <input type="text" class="form-control" name="inputUsername" id="inputUsername" />
+            <input type="text" class="form-control" name="inputUsername" id="inputUsername" value=""/>
           </div>
           <div class="form-group">
             <label for="inputPassword">Password</label>

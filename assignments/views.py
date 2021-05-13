@@ -22,13 +22,13 @@ def viewProfile(request):
             context = {
                 'username': username,
                 'isStudent': isStudent,
-                'student': student
+                'student': student,
             }
         else:
             teacher = get_object_or_404(TeacherProfile, user=thisUser) # better
             context = {
                 'username': username,
-                'teacher': teacher
+                'teacher': teacher,
             }
         return render(request, 'assignments/userProfile.html', context)
     else:
