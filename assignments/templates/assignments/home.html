@@ -31,13 +31,18 @@
 
   <body>
     <div class="container">
-      {% if user.is_authenticated %}
+      {% if request.user.is_authenticated %}
         <ul>
           <li><a class="active" href="../assignments">Home</a></li>
           <li><a href="../assignments/viewAssignments">View Assignments</a></li>
           <li><a href="../assignments/viewProfile">View Profile</a></li>
         </ul>
         <h1>Home</h1>
+        <form style="padding-bottom:1em;" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="logout" value="logout"></input>
+          <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
       {% else %}
         <h1>Home</h1>
         <h3>Log-in</h3>

@@ -9,13 +9,25 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 
-# Create your views here.
+# This is the homepage view, link is basic link with /assignments/ added
 def index(request):
+    # Homepage, returns user
+    if request.POST:
+        if 'inputUsername' in request.POST.keys():
+            user = authenticate(username=request.POST['inputUsername'],
+                password=request.POST['inputPassword'])
+            if user is not None:
+                login(request, user)
+            else:
+                pass
+        elif 'logout' in request.POST.keys():
+            logout(request)
     context = {
         'user' : request.user
     }
     return render(request, 'assignments/home.html', context)
 
+# This is the view to look at the profile,
 def viewProfile(request):
     if request.user.is_authenticated:
         username = request.user.username
@@ -36,11 +48,15 @@ def viewProfile(request):
             }
         return render(request, 'assignments/userProfile.html', context)
     else:
-        return HttpResponse("User login not found")
+        context = {
+        }
+        return render(request, 'assignments/signup.html', context)
 
+# This view allows users to edit their own profile
 def editProfile(request):
     return render(request, 'assignments/userProfile.html')
 
+# This view allows users to see all active assignments
 def viewAssignments(request):
     allAssignments = Assignment.objects.all()
     context = {
@@ -49,9 +65,11 @@ def viewAssignments(request):
     print(context)
     return render(request, 'assignments/assignmentsPage.html', context)
 
+# This view allows teachers to make new assignments
 def makeAssignment(request):
     return HttpResponse(request, "Make your assignment here")
 
+#
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
