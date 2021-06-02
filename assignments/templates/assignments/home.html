@@ -46,7 +46,7 @@
       {% else %}
         <h1>Home</h1>
         <h3>Log-in</h3>
-        <form style="padding-bottom:1em;" method="POST" action="viewProfile/">
+        <form style="padding-bottom:1em;" method="POST">
           {% csrf_token %}
           <div class="form-group">
             <label for="inputUsername">Username</label>

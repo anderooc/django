@@ -11,7 +11,6 @@ from django.views import generic
 
 # This is the homepage view, link is basic link with /assignments/ added
 def index(request):
-    # Homepage, returns user
     if request.POST:
         if 'inputUsername' in request.POST.keys():
             user = authenticate(username=request.POST['inputUsername'],
