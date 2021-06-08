@@ -62,7 +62,8 @@ def viewAssignments(request):
 
 # This view allows teachers to make new assignments
 def makeAssignment(request):
-    return HttpResponse(request, "Make your assignment here")
+
+    return render(request, 'assignments/')
 
 #
 def signup(request):
