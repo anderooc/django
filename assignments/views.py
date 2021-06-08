@@ -5,7 +5,7 @@ from .models import UserProfile, StudentProfile, TeacherProfile, Assignment
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
-from .forms import SignupForm, ChangePasswordForm
+from .forms import SignupForm, ChangePasswordForm, MakeAssignmentsForm
 from django.contrib.auth.password_validation import validate_password, password_changed, ValidationError
 
 # This is the homepage view, link is basic link with /assignments/ added
@@ -60,10 +60,38 @@ def viewAssignments(request):
     print(context)
     return render(request, 'assignments/assignmentsPage.html', context)
 
-# This view allows teachers to make new assignments
-def makeAssignment(request):
+def makeAssignments1(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+        thisUser = User.objects.get(username = username)
+        thisUserProfile = get_object_or_404(UserProfile, user=thisUser)
+        context = {
+            'user' : request.user,
+            'MakeAssignmentsForm' : MakeAssignmentsForm,
+            "isStudent": thisUserProfile.is_student
+        }
+        return render(request, 'assignments/makeAssignments.html', context)
+    else:
+        context = {
+        }
+        return render(request, 'assignments/index.html', context)
 
-    return render(request, 'assignments/')
+
+# This view allows teachers to make new assignments
+def makeAssignments(request):
+    username = request.user.username
+    thisUser = User.objects.get(username = username)
+    thisUserProfile = get_object_or_404(UserProfile, user=thisUser)
+    context = {
+            "MakeAssignmentsForm": MakeAssignmentsForm,
+            "isStudent": thisUserProfile.is_student
+    }
+    assignment = Assignment(
+        assignmentName = request.POST['name'],
+        assignmentDescription = request.POST['description']
+    )
+    assignment.save()
+    return render(request, 'assignments/makeAssignments.html', context)
 
 #
 def signup(request):

@@ -37,11 +37,12 @@
         <li><a class="active" href="../viewAssignments">View Assignments</a></li>
         <li><a href="../viewProfile">View Profile</a></li>
         <li><a href="../changePassword1">Change Password</a></li>
+        <li><a href="../makeAssignments1">Make Assignments</a></li>
       </ul>
       <h1>Assignments Page</h1>
       {% for assignment in allAssignments %}
-        <div>{{assignment.assignmentName}}</div>
-        <div>{{assignment.assignmentDescription}}</div>
+        <h4 style="color:darkRed;font-weight:bold"><div>{{assignment.assignmentName}}</div></h4>
+        <p><div>{{assignment.assignmentDescription}}</div></p>
       {% endfor %}
     </div>
   </body>

@@ -36,9 +36,22 @@
         <li><a href="../">Home</a></li>
         <li><a href="../viewAssignments">View Assignments</a></li>
         <li><a href="../viewProfile">View Profile</a></li>
-        <li><a class="active" href="../changePassword1">Change Password</a></li>
+        <li><a href="../changePassword1">Change Password</a></li>
+        <li><a class="active" href="../makeAssignments1">Make Assignments</a></li>
       </ul>
-        
+
+        <h2>Make Assignments</h2>
+        {% if isStudent %}
+          <p>Sorry, you are not a teacher.</p>
+        {% else %}
+          {% block content %}
+            <form action ="{% url 'makeAssignment'%}" method="POST">
+              {% csrf_token %}
+              {{ MakeAssignmentsForm }}
+              <button type="submit" name="changePassword">Submit</button>
+            </form>
+          {% endblock %}
+        {% endif %}
     </div>
   </body>
 </html>

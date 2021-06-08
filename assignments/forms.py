@@ -12,4 +12,6 @@ class SignupForm(UserCreationForm):
 class ChangePasswordForm(forms.Form):
     password = forms.CharField(min_length=8)
 
-    
+class MakeAssignmentsForm(forms.Form):
+    name = forms.CharField(max_length=50)
+    description = forms.CharField(max_length=250)
