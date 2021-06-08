@@ -8,3 +8,8 @@ class SignupForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2')
+
+class ChangePasswordForm(forms.Form):
+    password = forms.CharField(min_length=8)
+
+    

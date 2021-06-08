@@ -5,8 +5,7 @@ from .models import UserProfile, StudentProfile, TeacherProfile, Assignment
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
-from .forms import SignupForm
-
+from .forms import SignupForm, ChangePasswordForm
 
 # This is the homepage view, link is basic link with /assignments/ added
 def index(request):
@@ -20,7 +19,8 @@ def index(request):
         elif 'logout' in request.POST.keys():
             logout(request)
     context = {
-        'user' : request.user
+        'user' : request.user,
+        'ChangePasswordForm' : ChangePasswordForm
     }
     return render(request, 'assignments/home.html', context)
 
@@ -109,3 +109,17 @@ def signup(request):
                 teacher.save()
             return redirect("index")
     return render(request, 'assignments/signup.html', {'form': form})
+
+def changePassword(request):
+    newPassword = request.POST['password']
+
+    try:
+        validate_password(newPassword, user=None, password_validators=None)
+    except ValidationError:
+        context = {
+            'user' : request.user,
+            'ChangePasswordForm' : ChangePasswordForm
+        }
+        return render(request, 'assignmnets/changePassword.html', context)
+    set_password(newPassword)
+    password_changed(newPassword, user=None, password_validators=None)
