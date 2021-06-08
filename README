@@ -1,0 +1,6 @@
+Specialized areas to look for:
+  1. Give users ability to edit existing data in the database. (Ability to change password)
+  2. More complex use of permissions/logins/logouts, where, for example, some users can edit/add data and some can't. (Teachers can make assignments, students can't)
+  3. Allowing for a new user to register through a form.
+  4. Using template extensions. (Not too sure)
+ 
