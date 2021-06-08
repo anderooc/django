@@ -29,18 +29,19 @@ def viewProfile(request):
     if request.user.is_authenticated:
         username = request.user.username
         thisUser = User.objects.get(username = username)
-        thisUserProfile = get_object_or_404(UserProfile, pk=thisUser.pk)
+        thisUserProfile = get_object_or_404(UserProfile, user=thisUser)
         if thisUserProfile.is_student:
-            student = get_object_or_404(StudentProfile, pk=thisUser.pk)
+            student = get_object_or_404(StudentProfile, student=thisUser)
             context = {
                 'username': username,
                 'isStudent': thisUserProfile.is_student,
                 'student': student,
             }
         else:
-            teacher = get_object_or_404(TeacherProfile, pk=thisUser.pk)
+            teacher = get_object_or_404(TeacherProfile, teacher=thisUser)
             context = {
                 'username': username,
+                'isStudent': thisUserProfile.is_student,
                 'teacher': teacher,
             }
         return render(request, 'assignments/userProfile.html', context)
@@ -73,8 +74,8 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             newUser = User(
-                username = form.cleaned_data.get('username'),
-                password = make_password(form.cleaned_data.get('password')),
+                username = request.POST['username'],
+                password = make_password(request.POST['password1']),
             )
             newUser.save()
             newUser.refresh_from_db()
