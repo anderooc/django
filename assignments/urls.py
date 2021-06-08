@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 
 from . import views
 
@@ -12,4 +14,4 @@ urlpatterns = [
     path('signUp/', views.signup, name='signup'),
     path('changePassword1/', views.changePassword1, name='changePassword1'),
     path('changePassword/', views.changePassword, name='changePassword')
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,38 +1,21 @@
 <!DOCTYPE html>
+<!-- To load css -->
+{% load static %}
 <html lang="en-US">
   <head>
     <title>Faux Blackbaud</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static 'assignments/navbar.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <style>
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #333;
-      }
-      li {
-        float: left;
-      }
-      li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-      }
-      li a:hover {
-        background-color: #111;
-      }
-    </style>
   </head>
 
   <body>
     <div class="container">
+      <!-- Home page is different for those who are authenticated and those who are not-->
       {% if request.user.is_authenticated %}
+        <!-- Nav bar -->
         <ul>
           <li><a class="active" href="../assignments">Home</a></li>
           <li><a href="../assignments/viewAssignments">View Assignments</a></li>
@@ -43,15 +26,18 @@
 
         <h1>Home</h1>
 
+        <!-- Logout form -->
         <form style="padding-bottom:1em;" method="POST">
           {% csrf_token %}
           <input type="hidden" name="logout" value="logout"></input>
           <button type="submit" class="btn btn-danger">Logout</button>
         </form>
 
+      <!-- Homepage is a login form for those who are not signed in and has a button to sign up-->
       {% else %}
         <h1>Home</h1>
         <h3>Log-in</h3>
+        <!-- Login form-->
         <form style="padding-bottom:1em;" method="POST">
           {% csrf_token %}
           <div class="form-group">
@@ -65,7 +51,7 @@
 
           <button type="submit" class="btn btn-danger">Login</button>
         </form>
-
+        <!-- Button to sign up-->
         <button onclick="location.href='../assignments/signUp/'" type="button">Sign Up</button>
       {% endif %}
     </div>

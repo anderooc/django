@@ -1,37 +1,19 @@
 <!DOCTYPE html>
+<!-- To load css -->
+{% load static %}
 <html lang="en-US">
   <head>
     <title>Faux Blackbaud</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{% static 'assignments/navbar.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <style>
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #333;
-      }
-      li {
-        float: left;
-      }
-      li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-      }
-      li a:hover {
-        background-color: #111;
-      }
-    </style>
   </head>
 
   <body>
     <div class="container">
+      <!-- Nav bar-->
       <ul>
         <li><a href="../">Home</a></li>
         <li><a href="../viewAssignments">View Assignments</a></li>
@@ -39,8 +21,10 @@
         <li><a href="../changePassword1">Change Password</a></li>
         <li><a href="../makeAssignments1">Make Assignments</a></li>
       </ul>
+
       <h1>User Profile</h1>
       <div>Hi {{username}}</div>
+      <!-- Gives account information depend on account type -->
       {% if isStudent %}
         <p>This is a student profile</p>
         <div>You are in grade {{student.grade}}</div>
