@@ -37,12 +37,15 @@
           <li><a href="../assignments/viewAssignments">View Assignments</a></li>
           <li><a href="../assignments/viewProfile">View Profile</a></li>
         </ul>
+
         <h1>Home</h1>
+
         <form style="padding-bottom:1em;" method="POST">
           {% csrf_token %}
           <input type="hidden" name="logout" value="logout"></input>
           <button type="submit" class="btn btn-danger">Logout</button>
         </form>
+
       {% else %}
         <h1>Home</h1>
         <h3>Log-in</h3>
@@ -59,6 +62,8 @@
 
           <button type="submit" class="btn btn-danger">Login</button>
         </form>
+
+        <button onclick="location.href='../assignments/signUp/'" type="button">Sign Up</button>
       {% endif %}
     </div>
   </body>

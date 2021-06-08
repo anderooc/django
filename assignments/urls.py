@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.urls import path
 
 from . import views
-from .views import SignUpView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -10,5 +9,5 @@ urlpatterns = [
     path('editProfile/', views.editProfile, name='editProfile'),
     path('viewAssignments/', views.viewAssignments, name='viewAssignments'),
     path('makeAssignment/', views.makeAssignment, name='makeAssignment'),
-    path('signUp/', SignUpView.as_view(), name='signup')
+    path('signUp/', views.signup, name='signup')
 ]
