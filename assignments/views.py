@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from .forms import SignupForm, ChangePasswordForm
+from django.contrib.auth.password_validation import validate_password, password_changed, ValidationError
 
 # This is the homepage view, link is basic link with /assignments/ added
 def index(request):
@@ -49,10 +50,6 @@ def viewProfile(request):
         context = {
         }
         return render(request, 'assignments/signup.html', context)
-
-# This view allows users to edit their own profile
-def editProfile(request):
-    return render(request, 'assignments/userProfile.html')
 
 # This view allows users to see all active assignments
 def viewAssignments(request):
@@ -110,16 +107,43 @@ def signup(request):
             return redirect("index")
     return render(request, 'assignments/signup.html', {'form': form})
 
+def changePassword1(request):
+    context = {
+        'user' : request.user,
+        'ChangePasswordForm' : ChangePasswordForm,
+    }
+    return render(request, 'assignments/changePassword.html', context)
+
 def changePassword(request):
     newPassword = request.POST['password']
-
     try:
-        validate_password(newPassword, user=None, password_validators=None)
+        validate_password(newPassword, user=request.user)
     except ValidationError:
         context = {
             'user' : request.user,
-            'ChangePasswordForm' : ChangePasswordForm
+            'ChangePasswordForm' : ChangePasswordForm,
         }
-        return render(request, 'assignmnets/changePassword.html', context)
-    set_password(newPassword)
-    password_changed(newPassword, user=None, password_validators=None)
+        return render(request, 'assignments/changePassword.html', context)
+    request.user.set_password(newPassword)
+    request.user.save()
+    password_changed(newPassword, user=request.user)
+    username = request.user.username
+    thisUser = User.objects.get(username = username)
+    thisUserProfile = get_object_or_404(UserProfile, user=thisUser)
+    if thisUserProfile.is_student:
+        student = get_object_or_404(StudentProfile, student=thisUser)
+        context = {
+            'username': username,
+            'isStudent': thisUserProfile.is_student,
+            'student': student,
+            'ChangePasswordForm': ChangePasswordForm,
+        }
+    else:
+        teacher = get_object_or_404(TeacherProfile, teacher=thisUser)
+        context = {
+            'username': username,
+            'isStudent': thisUserProfile.is_student,
+            'teacher': teacher,
+            'ChangePasswordForm': ChangePasswordForm,
+        }
+    return render(request, 'assignments/userProfile.html', context)
